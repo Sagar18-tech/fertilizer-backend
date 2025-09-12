@@ -3,7 +3,7 @@ from flask_cors import CORS
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 import os
-JWT_SECRET = os.environ.get('Sagar@123')
+JWT_SECRET = os.environ.get("JWT_SECRET", "fallback-secret")
 import pickle
 import pandas as pd
 from models import Base, User, Recommendation
@@ -13,7 +13,18 @@ app = Flask(__name__)
 CORS(app)
 
 # Database setup
-DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///fertilizer.db')
+DATABASE_URL = os.getenv(
+    'DATABASE_URL',
+    'sqlite:///fertilizer.db'
+)
+
+# Fix SSL root cert issue for CockroachDB on Render
+if "cockroachlabs.cloud" in DATABASE_URL and "sslrootcert" in DATABASE_URL:
+    DATABASE_URL = DATABASE_URL.replace(
+        "sslrootcert=C:\\path\\to\\cc-ca.crt",
+        "sslrootcert=system"
+    )
+
 engine = create_engine(DATABASE_URL)
 Session = sessionmaker(bind=engine)
 
