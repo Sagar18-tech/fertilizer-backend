@@ -18,12 +18,12 @@ DATABASE_URL = os.getenv(
     'sqlite:///fertilizer.db'
 )
 
-# Fix SSL root cert issue for CockroachDB on Render
-if "cockroachlabs.cloud" in DATABASE_URL and "sslrootcert" in DATABASE_URL:
-    DATABASE_URL = DATABASE_URL.replace(
-        "sslrootcert=C:\\path\\to\\cc-ca.crt",
-        "sslrootcert=system"
-    )
+# # Fix SSL root cert issue for CockroachDB on Render
+# if "cockroachlabs.cloud" in DATABASE_URL and "sslrootcert" in DATABASE_URL:
+#     DATABASE_URL = DATABASE_URL.replace(
+#         "sslrootcert=C:\\path\\to\\cc-ca.crt",
+#         "sslrootcert=system"
+#     )
 
 engine = create_engine(DATABASE_URL)
 Session = sessionmaker(bind=engine)
