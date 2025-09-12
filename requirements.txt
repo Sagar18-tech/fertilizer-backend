@@ -7,3 +7,6 @@ numpy
 joblib
 psycopg2-binary
 sqlalchemy
+PyJWT
+python-dotenv
+bcrypt
