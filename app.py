@@ -26,6 +26,11 @@ with open("ML/fertilizer_model.pkl", "rb") as f:
 model = saved_data["model"]
 fert_encoder = saved_data["fert_encoder"]
 
+# ---------- ROOT ROUTE ----------
+@app.route("/")
+def home():
+    return jsonify({"message": "Fertilizer Recommendation API is running!"})
+
 # ---------- AUTH ROUTES ----------
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -63,8 +68,8 @@ def login():
     return jsonify({'token': token})
 
 # ---------- ML MODEL PREDICTION ----------
-@app.route('/predict', methods=['POST'])
-def predict():
+@app.route('/recommend', methods=['POST']) 
+def recommend():
     try:
         data = request.get_json()
         N = data['N']
@@ -80,4 +85,5 @@ def predict():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
