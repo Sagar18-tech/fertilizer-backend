@@ -1,7 +1,12 @@
 services:
   - type: web
-    name: fertilizer-ml-backend
+    name: fertilizer-recommendation
     env: python
+    plan: free
     buildCommand: "pip install -r requirements.txt"
     startCommand: "gunicorn app:app"
-    plan: free
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///fertilizer.db
+      - key: JWT_SECRET
+        value: "Sagar@123"

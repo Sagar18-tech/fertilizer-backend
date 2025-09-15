@@ -1,13 +1,9 @@
 flask
-gunicorn
 flask-cors
-scikit-learn
-pandas
-numpy
-joblib
-psycopg2-binary
 sqlalchemy
-cockroachdb
-PyJWT
-python-dotenv
+psycopg2-binary  # only if using Postgres, safe to keep
 bcrypt
+pyjwt
+pandas
+scikit-learn
+gunicorn
